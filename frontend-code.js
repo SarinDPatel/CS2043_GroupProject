@@ -136,3 +136,24 @@ class ProductView extends React.Component {
       );
     }
   }
+
+  // UserManagementComponent.js - Managing employees and permissions
+class UserManagementComponent extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        users: [],
+        roles: ['Customer', 'Employee', 'Manager'],
+        selectedUser: null,
+        isEditing: false,
+        formData: {
+          username: '',
+          email: '',
+          role: 'Customer',
+          department: '',
+          wage: '',
+          schedule: ''
+        }
+      };
+    }
+  }
