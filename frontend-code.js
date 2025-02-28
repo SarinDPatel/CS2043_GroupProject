@@ -156,4 +156,34 @@ class UserManagementComponent extends React.Component {
         }
       };
     }
+  
+    componentDidMount() {
+      this.loadUsers();
+    }
+  
+    loadUsers = async () => {
+      try {
+        const response = await api.get('/users');
+        this.setState({ users: response.data });
+      } catch (error) {
+        console.error('Failed to load users', error);
+      }
+    }
+  
+    handleSelectUser = (user) => {
+      this.setState({
+        selectedUser: user,
+        isEditing: true,
+        formData: {
+          username: user.username,
+          email: user.email,
+          role: user.role,
+          department: user.department || '',
+          wage: user.wage || '',
+          schedule: user.schedule || ''
+        }
+      });
+    }
+  
+    
   }
