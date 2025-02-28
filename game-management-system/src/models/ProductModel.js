@@ -1,23 +1,24 @@
-import Model from './BaseModel';
-
-export default class ProductModel extends Model {
-    constructor(id = "", title = "", category = "", price = 0, quantity = 0, description = "") {
-        super();
+class Product {
+    constructor(id, name, price, stock, category) {
         this.id = id;
-        this.title = title;
-        this.category = category;
+        this.name = name;
         this.price = price;
-        this.quantity = quantity;
-        this.description = description;
+        this.stock = stock;
+        this.category = category; // 'game' or 'merchandise'
     }
+}
 
-    updateStock(quantity) {
-        this.quantity = quantity;
-        return true;
+class Game extends Product {
+    constructor(id, name, price, stock, console, warrantyAvailable) {
+        super(id, name, price, stock, 'game');
+        this.console = console; // e.g., PS5, Xbox
+        this.warrantyAvailable = warrantyAvailable; // Boolean
     }
+}
 
-    setPrice(newPrice) {
-        this.price = newPrice;
-        return true;
+class Merchandise extends Product {
+    constructor(id, name, price, stock, type) {
+        super(id, name, price, stock, 'merchandise');
+        this.type = type; // e.g., T-shirt, collectible
     }
 }

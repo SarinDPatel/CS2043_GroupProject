@@ -1,24 +1,32 @@
-import Controller from './BaseController';
-
-export default class InventoryController extends Controller {
-    constructor(productService) {
-        super();
-        this.productService = productService;
+// Handles filtering, discounts, warranties, voiding items
+class InventoryController {
+    constructor() {
+        this.products = [];
     }
 
-    loadProducts() {
-        return this.productService.getProducts();
+    addProduct(product) {
+        this.product.push(product);
     }
 
-    updateProduct(productId, productData) {
-        return this.productService.updateProduct(productId, productData);
+    filterByCategory(category) {
+        return this.products.filter(p => p.category === category);
     }
 
-    deleteProduct(productId) {
-        return this.productService.deleteProduct(productId);
+    filterByConsole(console) {
+        return this.products.filter(p => p.console === console);
     }
 
-    createProduct(productData) {
-        return this.productService.createProduct(productData);
+    applyDiscount(productId, discountPercentage) {
+        let product = this.products.find(p => p.id === productId);
+        if (product) {
+            product.price -= produce.price * (discountPercentage / 100);
+        }
+    }
+
+    voidItem(productId) {
+        let productIndex = this.products.findIndex(p => p.id === productId);
+        if(productIndex !== -1) {
+            this.products.splice(productIndex, 1); // remove from inventory
+        }
     }
 }
