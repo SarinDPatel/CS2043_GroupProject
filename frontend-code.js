@@ -253,7 +253,78 @@ class UserManagementComponent extends React.Component {
           
           <div className="user-form">
             <h3>{isEditing ? 'Edit User' : 'Create User'}</h3>
-            
+            <form onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <label>Username:</label>
+                <input
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={this.handleInputChange}
+                  required
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Email:</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={this.handleInputChange}
+                  required
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Role:</label>
+                <select
+                  name="role"
+                  value={formData.role}
+                  onChange={this.handleInputChange}
+                >
+                  {roles.map(role => (
+                    <option key={role} value={role}>{role}</option>
+                  ))}
+                </select>
+              </div>
+              
+              {/* Additional fields that show only for Employees and Managers */}
+              {formData.role !== 'Customer' && (
+                <>
+                  <div className="form-group">
+                    <label>Department:</label>
+                    <input
+                      type="text"
+                      name="department"
+                      value={formData.department}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                  
+                  <div className="form-group">
+                    <label>Wage:</label>
+                    <input
+                      type="number"
+                      name="wage"
+                      value={formData.wage}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                  
+                 
+                </>
+              )}
+              
+              <div className="form-actions">
+                <button type="submit">
+                  {isEditing ? 'Update User' : 'Create User'}
+                </button>
+                <button type="button" onClick={this.resetForm}>
+                  Cancel
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       );
