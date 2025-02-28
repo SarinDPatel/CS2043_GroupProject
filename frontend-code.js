@@ -53,7 +53,28 @@ class ProductView extends React.Component {
       this.setState({ selectedCategory: category }, this.filterProducts);
     }
   
-    /**Filter Products */
+    filterProducts = () => {
+      const { products, selectedCategory, searchQuery } = this.state;
+      
+      let filtered = products;
+      
+      // Filter by category
+      if (selectedCategory !== 'All') {
+        filtered = filtered.filter(product => 
+          product.category === selectedCategory
+        );
+      }
+      
+      // Filter by search query
+      if (searchQuery) {
+        filtered = filtered.filter(product => 
+          product.title.toLowerCase().includes(searchQuery) ||
+          product.description.toLowerCase().includes(searchQuery)
+        );
+      }
+      
+      this.setState({ filteredProducts: filtered });
+    }
   
     render() {
       const { 
