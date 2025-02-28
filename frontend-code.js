@@ -185,5 +185,47 @@ class UserManagementComponent extends React.Component {
       });
     }
   
-    
+    handleInputChange = (event) => {
+      const { name, value } = event.target;
+      this.setState(prevState => ({
+        formData: {
+          ...prevState.formData,
+          [name]: value
+        }
+      }));
+    }
+  
+    handleSubmit = async (event) => {
+      event.preventDefault();
+      const { formData, selectedUser, isEditing } = this.state;
+      
+      try {
+        if (isEditing && selectedUser) {
+          await api.put(`/users/${selectedUser.id}`, formData);
+        } else {
+          await api.post('/users', formData);
+        }
+        
+        this.loadUsers();
+        this.resetForm();
+      } catch (error) {
+        console.error('Error saving user', error);
+      }
+    }
+  
+    resetForm = () => {
+      this.setState({
+        selectedUser: null,
+        isEditing: false,
+        formData: {
+          username: '',
+          email: '',
+          role: 'Customer',
+          department: '',
+          wage: '',
+          schedule: ''
+        }
+      });
+    }
+  
   }
