@@ -118,8 +118,21 @@ class ProductView extends React.Component {
             </div>
           </div>
           
-          
+          <div className="product-grid">
+            {filteredProducts.length > 0 ? (
+              filteredProducts.map(product => (
+                <ProductCard 
+                  key={product.id} 
+                  product={product} 
+                  onEdit={this.handleEditProduct}
+                  onDelete={this.handleDeleteProduct}
+                />
+              ))
+            ) : (
+              <div className="no-results">No products found</div>
+            )}
           </div>
+        </div>
       );
     }
   }
