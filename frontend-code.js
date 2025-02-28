@@ -228,4 +228,34 @@ class UserManagementComponent extends React.Component {
       });
     }
   
+    render() {
+      const { users, roles, isEditing, formData } = this.state;
+  
+      return (
+        <div className="user-management">
+          <h2>User Management</h2>
+          
+          <div className="user-list">
+            <h3>Users</h3>
+            <ul>
+              {users.map(user => (
+                <li 
+                  key={user.id} 
+                  onClick={() => this.handleSelectUser(user)}
+                  className={this.state.selectedUser?.id === user.id ? 'selected' : ''}
+                >
+                  {user.username} - {user.role}
+                </li>
+              ))}
+            </ul>
+            <button onClick={this.resetForm}>Add New User</button>
+          </div>
+          
+          <div className="user-form">
+            <h3>{isEditing ? 'Edit User' : 'Create User'}</h3>
+            
+          </div>
+        </div>
+      );
+    }
   }
