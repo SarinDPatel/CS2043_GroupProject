@@ -1,4 +1,4 @@
-package src;
+package org.project.gsm.src;
 
 // TODO: Write some exceptions to validate inputs.
 public abstract class Playware {

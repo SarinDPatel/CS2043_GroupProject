@@ -1,4 +1,4 @@
-package src;
+package org.project.gsm.src;
 
 import java.util.Calendar;
 
@@ -12,6 +12,11 @@ public class Transaction {
 	private double subtotal; // total before adding discounts
 	private double discount; // defined from 0.0 to 1.0
 	private double total;
+
+	public Transaction() {
+		T_ID = T_IDCounter;
+
+	}
 
 	// TODO: Constructor and some methods
 }

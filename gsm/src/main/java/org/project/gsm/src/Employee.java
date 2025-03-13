@@ -1,4 +1,4 @@
-package src;
+package org.project.gsm.src;
 
 public class Employee extends Person {
 
