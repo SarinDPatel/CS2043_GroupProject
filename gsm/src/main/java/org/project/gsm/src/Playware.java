@@ -1,18 +1,18 @@
 package org.project.gsm.src;
 
-// TODO: Write some exceptions to validate inputs.
+//FIXME: The default quantities and corresponding fields may not be the most appropriate in this class. Consider refactoring this and child classes
 public abstract class Playware {
-	protected final int DEFAULT_QTY_IN_STOCK = 0;
-	protected final double DEFAULT_DISCOUNT = 0.0;
-	protected final int DEFAULT_WARRANTY = 6;
+	private final int DEFAULT_QTY_IN_STOCK = 0;
+	private final double DEFAULT_DISCOUNT = 0.0;
+	private final int DEFAULT_WARRANTY = 6;
 
-	protected static int I_IDCounter = 1000;
-	protected final int I_ID;
-	protected String name;
-	protected double basePrice;
-	protected int qtyInStock;
-	protected double discount;
-	protected int warrantyLengthInMonths;
+	private static int I_IDCounter = 10000;
+	private final int I_ID;
+	private String name;
+	private double basePrice;
+	private int qtyInStock;
+	private double discount;
+	private int warrantyLengthInMonths;
 
 	public Playware() {
 		this.I_ID = I_IDCounter;
@@ -41,6 +41,18 @@ public abstract class Playware {
 
 	public int getWarrantyLengthInMonths() {
 		return warrantyLengthInMonths;
+	}
+
+	public int getDEFAULT_QTY_IN_STOCK() {
+		return DEFAULT_QTY_IN_STOCK;
+	}
+
+	public double getDEFAULT_DISCOUNT() {
+		return DEFAULT_DISCOUNT;
+	}
+
+	public int getDEFAULT_WARRANTY() {
+		return DEFAULT_WARRANTY;
 	}
 
 	public void setName(String name) {
