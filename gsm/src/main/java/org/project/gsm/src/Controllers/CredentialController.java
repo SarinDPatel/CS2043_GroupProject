@@ -42,7 +42,7 @@ public class CredentialController {
 				System.out.println(e);
 			}
 			if (success) {
-				toReturn = ResponseEntity.ok("Login successful");
+				toReturn = ResponseEntity.ok("Registration successful");
 			} else {
 				toReturn = ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
 						.body("Registration failed. Please try again");

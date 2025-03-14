@@ -1,29 +1,24 @@
 package org.project.gsm.src;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Transaction {
 	private final int T_ID; // Transaction id
 	private static int T_IDCounter = 10000000;
 
-	private String U_ID; // User id
-	private int[] itemIDs;
-	private Calendar dateOfPurchase; // Class recommended for date-time operations
-	private Calendar warrantyExpiry;
-	private double subtotal; // total before adding discounts
-	private double discount; // defined from 0.0 to 1.0
+	private ArrayList<Integer> itemIDs;
+	private Date dateOfPurchase; // Class recommended for date-time operations
 	private double total;
 
-	public Transaction(String u_ID, int[] itemIDs, double subtotal, double discount) {
+	public Transaction(ArrayList<Integer> itemIDs, double total) {
 		T_ID = T_IDCounter;
 		T_IDCounter++;
-		U_ID = u_ID;
 
 		this.itemIDs = itemIDs;
-		this.subtotal = subtotal;
-		this.discount = discount;
-
+		this.total = total;
+		Calendar c = Calendar.getInstance();
+		dateOfPurchase = c.getTime();
 	}
-
-	// TODO: Constructor and some methods
 }
