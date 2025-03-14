@@ -1,5 +1,5 @@
-CREATE DATABASE game_ziad_store;
-USE game_ziad_store;
+CREATE DATABASE game_store_db;
+USE game_store_db;
 
 
 CREATE TABLE inventory(
