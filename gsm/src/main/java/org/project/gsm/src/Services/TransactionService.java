@@ -15,7 +15,6 @@ public class TransactionService {
 
 	public boolean processTransaction(ArrayList<Playware> itemsToProcess) {
 		boolean success = true;
-		// TODO: Substitute for actual JDBC method call
 		double total = getTotalPrice(itemsToProcess);
 
 		ArrayList<Integer> itemIds = new ArrayList<>(0);
