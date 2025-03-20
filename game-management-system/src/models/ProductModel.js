@@ -1,4 +1,4 @@
-class Product {
+export class Product {
     constructor(id, name, price, stock, category) {
         this.id = id;
         this.name = name;
@@ -8,7 +8,7 @@ class Product {
     }
 }
 
-class Game extends Product {
+export class Game extends Product {
     constructor(id, name, price, stock, console, warrantyAvailable) {
         super(id, name, price, stock, 'game');
         this.console = console; // e.g., PS5, Xbox
@@ -16,9 +16,12 @@ class Game extends Product {
     }
 }
 
-class Merchandise extends Product {
+export class Merchandise extends Product {
     constructor(id, name, price, stock, type) {
         super(id, name, price, stock, 'merchandise');
         this.type = type; // e.g., T-shirt, collectible
     }
 }
+
+// Default export for backward compatibility
+export default Product;
