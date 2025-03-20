@@ -21,4 +21,29 @@ public class Transaction {
 		Calendar c = Calendar.getInstance();
 		dateOfPurchase = c.getTime();
 	}
+
+	public int getT_ID() {
+		return T_ID;
+	}
+
+	public ArrayList<Integer> getItemIDs() {
+		return itemIDs;
+	}
+
+	public Date getDateOfPurchase() {
+		return dateOfPurchase;
+	}
+
+	public void setDateOfPurchase(Date dateOfPurchase) {
+		this.dateOfPurchase = dateOfPurchase;
+	}
+
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
+	}
+
 }

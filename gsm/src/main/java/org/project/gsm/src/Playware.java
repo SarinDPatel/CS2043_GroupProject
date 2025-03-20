@@ -36,4 +36,12 @@ public abstract class Playware {
 		return basePrice;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setBasePrice(double basePrice) {
+		this.basePrice = basePrice;
+	}
+
 }
