@@ -1,4 +1,7 @@
 import ProductModel from '../models/ProductModel';
+import apiClient from '../services/api';
+
+const productService = new ProductService(apiClient);
 
 export default class ProductService {
     constructor(apiClient) {
@@ -58,4 +61,5 @@ export default class ProductService {
             return null;
         }
     }
-}
+} 
+

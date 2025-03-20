@@ -1,3 +1,4 @@
+import { ProductCard } from './ProductCard';
 // Displays a list of products (games/merchandise)
 const ProductList = ({ products, onViewDetails }) => {
     return (
