@@ -15,12 +15,13 @@ public class TransactionService {
 
 	public boolean processTransaction(ArrayList<Playware> itemsToProcess) {
 		boolean success = true;
-		double total = getTotalPrice(itemsToProcess);
 
 		ArrayList<Integer> itemIds = new ArrayList<>(0);
 		for (Playware i : itemsToProcess) {
 			itemIds.add(i.getI_ID());
 		}
+
+		double total = getTotalPrice(itemIds);
 		Transaction t = new Transaction(itemIds, total);
 		try {
 			insertTransaction(t);
@@ -32,9 +33,9 @@ public class TransactionService {
 
 	}
 
-	private double getTotalPrice(ArrayList<Playware> items) {
+	private double getTotalPrice(ArrayList<Integer> itemIDs) {
 		double total = 0.0;
-		for (Playware i : items) {
+		for (Integer i : itemIDs) {
 			ResultSet details = getItemDetailsFromDB(i);
 			try {
 				double thisPrice = details.getInt("price");
@@ -48,7 +49,12 @@ public class TransactionService {
 
 	}
 
-	private ResultSet getItemDetailsFromDB(Playware item) {
+	public double discountThisTransaction(Transaction transaction, int discountAmt) {
+		double subtotal = getTotalPrice(transaction.getItemIDs());
+		return subtotal - (subtotal * discountAmt);
+	}
+
+	private ResultSet getItemDetailsFromDB(int itemID) {
 		// TODO: Replace stub
 		// Finish implementation
 		return null;

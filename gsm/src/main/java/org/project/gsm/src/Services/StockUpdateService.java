@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.project.gsm.src.Playware;
+import org.project.gsm.src.Transaction;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,7 +15,6 @@ public class StockUpdateService {
 	 * addInv
 	 * removeInv
 	 * applyDisc
-	 * discountThisTransaction
 	 * offerWaranty
 	 */
 
@@ -45,10 +45,17 @@ public class StockUpdateService {
 		return successfulRemoves;
 	}
 
-	/*
-	 * public void applyDiscount(Playware playware)
-	 */
-	public int checkIfExistsInDB(Playware p) {
+	public void applyDiscount(Playware playware, int discountAmt) {
+		// TODO: Replace stub
+		// call update statement to discount=discountAmt
+	}
+
+	public void offerWarranty(Playware playware, int numMonths) {
+		// TODO: Replace stub
+		// call update statement to warranty = numMonths
+	}
+
+	private int checkIfExistsInDB(Playware p) {
 		ResultSet resultSet = null; // TODO: Substitute for select statement
 		int inventoryID = 0;
 		try {
@@ -62,7 +69,7 @@ public class StockUpdateService {
 
 	}
 
-	public boolean insertIntoDB(Playware p, int qtyToAdd) {
+	private boolean insertIntoDB(Playware p, int qtyToAdd) {
 		boolean success = false;
 
 		// TODO: Replace stub
@@ -71,7 +78,7 @@ public class StockUpdateService {
 
 	}
 
-	public boolean updateDBEntry(int inventoryID, int qtyToAdd) {
+	private boolean updateDBEntry(int inventoryID, int qtyToAdd) {
 		int rowCount = 0; // TODO: Replace stub with update statement
 
 		return rowCount != 0;

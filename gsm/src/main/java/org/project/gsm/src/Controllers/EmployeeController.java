@@ -28,7 +28,7 @@ public class EmployeeController {
 		boolean success = transactionService.processTransaction(items);
 		ResponseEntity<String> toReturn = null;
 		if (success) {
-			toReturn = ResponseEntity.ok("Login successful");
+			toReturn = ResponseEntity.ok("Checkout successful");
 		} else {
 			toReturn = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.body("Processing transactions caused error");
