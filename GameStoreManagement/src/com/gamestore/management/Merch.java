@@ -33,23 +33,41 @@ public class Merch {
     }
 
     //Accesors and Mutators
-    public int getMerchId() { return merchId; }
-    public void setMerchId(int merchId) { this.merchId = merchId; }
+    public int getMerchId() { 
+        return merchId; }
+    public void setMerchId(int merchId) { 
+        this.merchId = merchId; 
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getName() { 
+        return name; }
+    public void setName(String name) { 
+        this.name = name; 
+    }
 
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
+    public String getType() { 
+        return type; }
+    public void setType(String type) { 
+        this.type = type;
+    }
 
-    public String getSize() { return size; }
-    public void setSize(String size) { this.size = size; }
+    public String getSize() { 
+        return size; }
+    public void setSize(String size) {
+        this.size = size;
+    }
 
-    public int getQuantity() { return quantity; }
-    public void setQuantity(int quantity) { this.quantity = quantity; }
+    public int getQuantity() { 
+        return quantity; }
+    public void setQuantity(int quantity) { 
+        this.quantity = quantity;
+    }
 
-    public int getInventoryId() { return inventoryId; }
-    public void setInventoryId(int inventoryId) { this.inventoryId = inventoryId; }
+    public int getInventoryId() {
+        return inventoryId; }
+    public void setInventoryId(int inventoryId) {
+        this.inventoryId = inventoryId; 
+    }
 
     // toString() method
     @Override
