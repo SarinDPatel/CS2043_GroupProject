@@ -6,10 +6,11 @@ CREATE TABLE inventory(
 	inventory_id INT PRIMARY KEY AUTO_INCREMENT,
 	title VARCHAR(255) NOT NULL,
 	price DECIMAL(10,2),
-	discount INT,--this would be the percent out of 100 that would be the discount
+	discount INT DEFAULT 0,--this would be the percent out of 100 that would be the discount
     quantity_in_stock INT DEFAULT 0,
-    description TEXT,
-	warranty DATE
+    description TEXT DEFAULT "",
+	warranty DATE,
+	type enum ('Game','Merch')
 );
 CREATE TABLE games (
     game_id INT PRIMARY KEY AUTO_INCREMENT,
