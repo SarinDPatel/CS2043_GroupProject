@@ -1,0 +1,5 @@
+javac -cp "C:\Users\gavin\Documents\2043\CS2043_GroupProject\GameStoreManagement\lib\mysql-connector-java-9.2.0.jar" -d ../bin Game.java
+this call to compile it or any code for that matter
+just replace the last word with whatever the class name is
+java -cp "bin;C:\Users\gavin\Documents\2043\CS2043_GroupProject\GameStoreManagement\lib\mysql-connector-j-9.2.0.jar" Game
+this call to run it. this ran it for games
