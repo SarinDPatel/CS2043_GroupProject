@@ -10,9 +10,6 @@ import java.sql.*;
 public class MerchDAO {
     private Connection connection;
 
-    /**
-     * ✅ Constructor with Try-Catch to Handle Database Connection Errors
-     */
     public MerchDAO() {
         try {
             this.connection = DatabaseConnection.getConnection();
@@ -27,7 +24,7 @@ public class MerchDAO {
     
     public void addMerch(String name, String type, String size, int quantity, double price, String description) {
         if (connection == null) {
-            System.err.println("❌ Cannot add merch: No database connection.");
+            System.err.println("Cannot add merch: No database connection.");
             return;
         }
 
