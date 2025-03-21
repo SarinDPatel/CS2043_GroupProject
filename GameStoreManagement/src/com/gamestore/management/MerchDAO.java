@@ -112,7 +112,7 @@ public class MerchDAO {
         return null;
     }
 
-    public Merch searchMerchByName(String name) {
+    public Merch searchMerchByTitle(String title) {
         if (connection == null) {
             System.err.println("Cannot search for merch: No database connection.");
             return null;
