@@ -86,11 +86,11 @@ private Connection connection;
     }
 
   
-    public void searchForGameByName(String name) {
+    public void searchForGameByTitle(String title) {
         String sql = "SELECT g.game_id, i.title, i.price, i.quantity_in_stock FROM games g JOIN inventory i ON g.inventory_id = i.inventory_id WHERE i.title LIKE ?";
         
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, "%" + name + "%");
+            stmt.setString(1, "%" + title + "%");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 System.out.println("Game ID: " + rs.getInt("game_id"));
