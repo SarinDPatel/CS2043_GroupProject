@@ -15,6 +15,32 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/credentials")
 public class CredentialController {
+
+	public static class RegistrationObject {
+		private String newUsername;
+		private String newPassword;
+		private Roles role;
+
+		public RegistrationObject(String newUsername, String newPassword, Roles role) {
+			this.newUsername = newUsername;
+			this.newPassword = newPassword;
+			this.role = role;
+		}
+
+		public String getNewUsername() {
+			return newUsername;
+		}
+
+		public String getNewPassword() {
+			return newPassword;
+		}
+
+		public Roles getRole() {
+			return role;
+		}
+
+	}
+
 	@PostMapping("/login") // Can be changed to have /{id} at the end to facilitiate getting specific id
 	public ResponseEntity<String> login(@RequestBody Credential requestCredentials) {
 		boolean success = findCredentialsInDB(requestCredentials);
@@ -28,8 +54,12 @@ public class CredentialController {
 	}
 
 	@PostMapping("/register")
-	public ResponseEntity<String> register(@RequestBody String newUsername, @RequestBody String newPassword,
-			@RequestBody Roles role) {
+	public ResponseEntity<String> register(@RequestBody RegistrationObject regObj) {
+
+		String newUsername = regObj.getNewUsername();
+		String newPassword = regObj.getNewPassword();
+		Roles role = regObj.getRole();
+
 		boolean exists = getIfUsernameExists(newUsername);
 		ResponseEntity<String> toReturn = null;
 		if (exists) {
@@ -51,7 +81,7 @@ public class CredentialController {
 		return toReturn;
 	}
 
-	public boolean findCredentialsInDB(Credential toSearch) {
+	private boolean findCredentialsInDB(Credential toSearch) {
 		ArrayList<Credential> cList = getCredentialsFromDB();
 		for (Credential c : cList) {
 			if (c.equals(toSearch)) {
@@ -62,7 +92,7 @@ public class CredentialController {
 
 	}
 
-	public boolean getIfUsernameExists(String toCheck) {
+	private boolean getIfUsernameExists(String toCheck) {
 		ArrayList<Credential> cList = getCredentialsFromDB();
 		for (Credential c : cList) {
 			if (c.getUsername().equals(toCheck)) {
@@ -74,7 +104,7 @@ public class CredentialController {
 
 	/* Utilities and Stubs */
 
-	public ArrayList<Credential> getCredentialsFromDB() {
+	private ArrayList<Credential> getCredentialsFromDB() {
 		Credential trialCreds = new Credential("TEST1", "TestUser", "TestPwd", Roles.CLIENT);
 		ArrayList<Credential> cList = new ArrayList<>(0);
 		cList.add(trialCreds);
@@ -83,15 +113,15 @@ public class CredentialController {
 
 	}
 
-	public boolean createUser(String username, String password, Roles role) {
+	private boolean createUser(String username, String password, Roles role) {
 		String newID = generateCredentialIDBasedOnRole(role);
 		Credential newUserCredentials = new Credential(newID, username, password, role);
 		// TODO: Call insert into DB
-		return false;
+		return true; // Replace with rows affected
 
 	}
 
-	public String generateCredentialIDBasedOnRole(Roles role) {
+	private String generateCredentialIDBasedOnRole(Roles role) {
 		// TODO: Replace stub
 		return "T0";
 
