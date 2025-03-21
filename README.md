@@ -22,13 +22,13 @@ I did:
 
     1. launch MySQLWorkbench
 
-    2. have the database already created.
+    2. have the database and tables already created. 
 
     3. click connection on the top banner.
 
-    4. click connect to a database
+    4. click connect to a database.
 
-    5. enter the password that was use within the code for password i have it set to my current password
+    5. enter the password that was use within the code for password i have it set to my current password.
 
     6. wait for it to close on you, then you should be connected.
 
