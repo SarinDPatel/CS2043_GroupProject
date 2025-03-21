@@ -6,7 +6,11 @@ CREATE TABLE inventory(
 	inventory_id INT PRIMARY KEY AUTO_INCREMENT,
 	title VARCHAR(255) NOT NULL,
 	price DECIMAL(10,2),
+<<<<<<< HEAD:BackEnd_DataBase.sql
+	discount INT,
+=======
 	discount INT DEFAULT 0,--this would be the percent out of 100 that would be the discount
+>>>>>>> f154661eb7ed28a5cf374d578798b255d64eea5b:GameStoreManagement/BackEnd_DataBase.sql
     quantity_in_stock INT DEFAULT 0,
     description TEXT DEFAULT "",
 	warranty DATE,
