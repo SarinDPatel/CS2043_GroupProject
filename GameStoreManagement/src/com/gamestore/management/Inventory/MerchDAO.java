@@ -6,7 +6,6 @@ package com.gamestore.management;
 
 import java.sql.*;
 
-// @Author Zaied Ibrahim and AI
 public class MerchDAO {
     private Connection connection;
 
