@@ -123,7 +123,7 @@ public class MerchDAO {
                      "WHERE i.title LIKE ? LIMIT 1"; 
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, "%" + name + "%");
+            stmt.setString(1, "%" + title + "%");
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return new Merch(
