@@ -13,7 +13,8 @@ private Connection connection;
     public GameDAO() {
         try {
             this.connection = DatabaseConnection.getConnection();
-        } catch (SQLException e) {
+        } 
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -46,7 +47,8 @@ private Connection connection;
                     gameStmt.executeUpdate();
                 }
             }
-        } catch (SQLException e) {
+        } 
+            catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -58,7 +60,8 @@ private Connection connection;
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
-        } catch (SQLException e) {
+        } 
+            catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -76,7 +79,8 @@ private Connection connection;
                 System.out.println("Price: $" + rs.getDouble("price"));
                 System.out.println("Stock: " + rs.getInt("quantity_in_stock"));
             }
-        } catch (SQLException e) {
+        } 
+            catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -94,7 +98,8 @@ private Connection connection;
                 System.out.println("Price: $" + rs.getDouble("price"));
                 System.out.println("Stock: " + rs.getInt("quantity_in_stock"));
             }
-        } catch (SQLException e) {
+        } 
+            catch (SQLException e) {
             e.printStackTrace();
         }
     }
