@@ -34,23 +34,23 @@ public class StockUpdateService {
 		return successfulAdds;
 	}
 
-	public ArrayList<Playware> removeInventory(Playware... playwares) {
-		ArrayList<Playware> successfulRemoves = new ArrayList<>(0);
-		for (Playware p : playwares) {
+	public ArrayList<Integer> removeInventory(Integer... playwareIDs) {
+		ArrayList<Integer> successfulRemoves = new ArrayList<>(0);
+		for (Integer id : playwareIDs) {
 			int rowsAffected = 0; // TODO: Substitute for remove statement
 			if (rowsAffected != 0) {
-				successfulRemoves.add(p);
+				successfulRemoves.add(id);
 			}
 		}
 		return successfulRemoves;
 	}
 
-	public void applyDiscount(Playware playware, int discountAmt) {
+	public void applyDiscount(Integer playwareID, int discountAmt) {
 		// TODO: Replace stub
 		// call update statement to discount=discountAmt
 	}
 
-	public void offerWarranty(Playware playware, int numMonths) {
+	public void offerWarranty(Integer playwareID, int numMonths) {
 		// TODO: Replace stub
 		// call update statement to warranty = numMonths
 	}

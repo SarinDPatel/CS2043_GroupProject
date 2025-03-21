@@ -1,6 +1,15 @@
 package org.project.gsm.src;
 
-//FIXME: The default quantities and corresponding fields may not be the most appropriate in this class. Consider refactoring this and child classes
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "type")
+@JsonSubTypes({
+		@JsonSubTypes.Type(value = Merch.class, name = "merch"),
+		@JsonSubTypes.Type(value = Game.class, name = "game")
+})
+// FIXME: The default quantities and corresponding fields may not be the most
+// appropriate in this class. Consider refactoring this and child classes
 public abstract class Playware {
 	/*
 	 * FIXME: Should go in PlaywareController

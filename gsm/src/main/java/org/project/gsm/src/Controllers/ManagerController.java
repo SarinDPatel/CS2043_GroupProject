@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("api/managers")
@@ -59,11 +60,11 @@ public class ManagerController {
 	}
 
 	@DeleteMapping("/removeinv")
-	public ResponseEntity<String> removeInventory(@RequestBody Playware... playwaresToRemove) {
+	public ResponseEntity<String> removeInventory(@RequestBody Integer... playwaresToRemove) {
 		ResponseEntity<String> toReturn = null;
-		ArrayList<Playware> removedItems = stockUpdateService.removeInventory(playwaresToRemove);
-		if (removedItems.size() > 0) {
-			toReturn = ResponseEntity.ok("Successfully removed " + removedItems.size()
+		ArrayList<Integer> removedItemIds = stockUpdateService.removeInventory(playwaresToRemove);
+		if (removedItemIds.size() > 0) {
+			toReturn = ResponseEntity.ok("Successfully removed " + removedItemIds.size()
 					+ " out of " + playwaresToRemove.length + " playwares");
 		} else {
 			toReturn = ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
@@ -73,4 +74,21 @@ public class ManagerController {
 		return toReturn;
 	}
 
+	@PutMapping("discount/{id}")
+	public ResponseEntity<String> applyDiscount(@PathVariable Integer playwareId,
+			@RequestBody Integer discountAmt) {
+		ResponseEntity<String> toReturn = null;
+		stockUpdateService.applyDiscount(playwareId, discountAmt);
+		toReturn = ResponseEntity.ok("Applied discount to item id" + playwareId);
+		return toReturn;
+	}
+
+	@PutMapping("warranty/{id}")
+	public ResponseEntity<String> offerWarranty(@PathVariable Integer playwareId,
+			@RequestBody Integer numMonths) {
+		ResponseEntity<String> toReturn = null;
+		stockUpdateService.applyDiscount(playwareId, numMonths);
+		toReturn = ResponseEntity.ok("Applied warranty to item id" + playwareId);
+		return toReturn;
+	}
 }
