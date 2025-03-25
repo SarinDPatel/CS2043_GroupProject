@@ -6,4 +6,5 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(),tailwindcss()],
   base: "/CS2043_GroupProject/tree/Vite-Frontend/Vite-Frontend",
+  base: "/",
 })

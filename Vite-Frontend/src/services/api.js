@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const API_URL = 'http://localhost:8080';  // Spring Boot default port
+
 const apiClient = axios.create({
-    baseURL: process.env.REACT_APP_API_URL || 'http://localhost:3001/api',
+    baseURL: process.env.REACT_APP_API_URL || API_URL,
     headers: {
         'Content-Type': 'application/json',
     },

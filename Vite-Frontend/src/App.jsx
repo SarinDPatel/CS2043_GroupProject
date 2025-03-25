@@ -1,4 +1,4 @@
-import { Profiler, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 import {Routes, Route} from "react-router-dom"
 
@@ -9,19 +9,29 @@ import Cart from './pages/Cart';
 import Profile from './pages/Profile';
 import Contact from './pages/Contact';
 import About from './pages/About';
+import ProtectedRoute from './components/ProtectedRoute';
 
 import Navbar from './components/Navbar'
 import AdminLogin from './pages/AdminLogin';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path= "/" element={<Home />}/>
-        <Route path= "/admin" element={<AdminLogin/>}/>
+        {/* Public routes */}
+        <Route path="/" element={<Home />}/>
+        <Route path="/login" element={<Login />}/>
+        <Route path="/admin" element={<AdminLogin />}/>
+        <Route path="/about" element={<About />}/>
+        <Route path="/contact" element={<Contact />}/>
+        
+        {/* Protected routes - require authentication */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/profile" element={<Profile />}/>
+          <Route path="/favorites" element={<Favorites />}/>
+          <Route path="/cart" element={<Cart />}/>
+        </Route>
       </Routes>
     </>
   )
