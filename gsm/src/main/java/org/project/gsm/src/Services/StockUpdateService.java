@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 import org.project.gsm.src.Playware;
 import org.project.gsm.src.Transaction;
@@ -35,24 +37,46 @@ public class StockUpdateService {
 	}
 
 	public ArrayList<Integer> removeInventory(Integer... playwareIDs) {
-		ArrayList<Integer> successfulRemoves = new ArrayList<>(0);
-		for (Integer id : playwareIDs) {
-			int rowsAffected = 0; // TODO: Substitute for remove statement
-			if (rowsAffected != 0) {
+		ArrayList<Integer> successfulRemoves = new ArrayList<>();
+
+	for (Integer id : playwareIDs) {
+		try (Connection connection = DatabaseConnection.getConnection();
+		     PreparedStatement stmt = connection.prepareStatement("DELETE FROM inventory WHERE inventory_id = ?")) {
+			
+			stmt.setInt(1, id);
+			int rowsAffected = stmt.executeUpdate();
+			if (rowsAffected > 0) {
 				successfulRemoves.add(id);
 			}
+		} catch (SQLException e) {
+			System.err.println("Cannot remove from inventory ID " + id + ": " + e.getMessage());
 		}
-		return successfulRemoves;
 	}
 
+	return successfulRemoves;
+}
+
 	public void applyDiscount(Integer playwareID, int discountAmt) {
-		// TODO: Replace stub
-		// call update statement to discount=discountAmt
+		try (Connection connection = DatabaseConnection.getConnection();
+		     PreparedStatement stmt = connection.prepareStatement("UPDATE inventory SET discount = ? WHERE inventory_id = ?")) {
+			stmt.setInt(1, discountAmt);
+			stmt.setInt(2, playwareID);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("Cannot apply discount: " + e.getMessage());
+		}
 	}
 
 	public void offerWarranty(Integer playwareID, int numMonths) {
-		// TODO: Replace stub
-		// call update statement to warranty = numMonths
+		try (Connection connection = DatabaseConnection.getConnection();
+		     PreparedStatement stmt = connection.prepareStatement(
+				     "UPDATE inventory SET warranty = DATE_ADD(CURDATE(), INTERVAL ? MONTH) WHERE inventory_id = ?")) {
+			stmt.setInt(1, numMonths);
+			stmt.setInt(2, playwareID);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println(" Erore cannot offer warranty: " + e.getMessage());
+		}
 	}
 
 	private int checkIfExistsInDB(Playware p) {
