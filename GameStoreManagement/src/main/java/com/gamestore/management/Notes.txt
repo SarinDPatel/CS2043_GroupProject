@@ -1,0 +1,141 @@
+javac -cp "C:\Users\gavin\Documents\2043\CS2043_GroupProject\GameStoreManagement\lib\mysql-connector-java-9.2.0.jar" -d ../bin Game.java
+this call to compile it or any code for that matter
+just replace the last word with whatever the class name is
+java -jar target/GameStoreManagement-1.0-SNAPSHOT.jarthis call to run it. 
+this ran it for the main method
+
+
+1. Adding Dependencies to the pom.xml
+Maven uses the pom.xml file to manage the libraries (dependencies) and plugins your project needs.
+
+MySQL JDBC Driver:
+xml
+Copy
+Edit
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.33</version>
+</dependency>
+Why it worked: This tells Maven that your project depends on the MySQL JDBC driver (mysql-connector-java). The version specified (8.0.33) allows Java to connect to a MySQL database.
+Maven automatically downloads this dependency and places it in the classpath, making it available to your code. Without it, your application wouldn’t be able to interact with the MySQL database.
+JUnit (For Unit Testing):
+xml
+Copy
+Edit
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter-api</artifactId>
+    <version>5.7.0</version>
+    <scope>test</scope>
+</dependency>
+Why it worked: JUnit is a testing framework, and the scope test means it's only included in the classpath during test phases (not in the production build). Even though you're not actively using JUnit in this particular run, it’s good practice to include it in your projects as you might need it for future unit tests.
+SLF4J (Logging Library):
+xml
+Copy
+Edit
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-api</artifactId>
+    <version>1.7.30</version>
+</dependency>
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-simple</artifactId>
+    <version>1.7.30</version>
+    <scope>runtime</scope>
+</dependency>
+Why it worked: SLF4J is a simple facade for logging. By including these dependencies, you set up a logging system (which is optional but useful) that can help with debugging and tracking your application’s behavior in a more scalable way.
+2. Setting Java Version in pom.xml
+xml
+Copy
+Edit
+<properties>
+    <maven.compiler.source>20</maven.compiler.source>
+    <maven.compiler.target>20</maven.compiler.target>
+</properties>
+Why it worked: These properties tell Maven to compile the project with Java version 20. When you specify the Java version here, Maven ensures that your code is compiled and run using that version, which aligns with your project setup (Java 20).
+Without these settings, Maven would use the default Java version installed on your system, which could be different from the version your project requires.
+
+
+3. Maven Compiler Plugin
+xml
+Copy
+Edit
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.8.1</version>
+    <configuration>
+        <source>20</source>
+        <target>20</target>
+    </configuration>
+</plugin>
+Why it worked: The Maven Compiler Plugin is responsible for compiling your Java code. By specifying the <source> and <target> as 20, you're telling Maven to compile your source code and output bytecode for Java 20.
+This ensures that any features specific to Java 20 (like new syntax or APIs) will be supported.
+
+
+4. Maven Shade Plugin (to create the fat JAR)
+xml
+Copy
+Edit
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-shade-plugin</artifactId>
+    <version>3.2.1</version>
+    <executions>
+        <execution>
+            <phase>package</phase>
+            <goals>
+                <goal>shade</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+Why it worked: The Maven Shade Plugin creates a "fat JAR" (also known as an executable JAR). A fat JAR bundles all the dependencies your project uses into a single JAR file. This allows you to run the application with java -jar, and it includes all the required libraries (like MySQL connector) without needing to manually handle them.
+Without the Shade Plugin, you'd have to manage your dependencies separately when distributing the app, which could be cumbersome.
+5. Maven Jar Plugin (Specifying the Main-Class)
+xml
+Copy
+Edit
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-jar-plugin</artifactId>
+    <version>3.1.0</version>
+    <configuration>
+        <archive>
+            <manifestEntries>
+                <Main-Class>com.gamestore.management.MainApplication</Main-Class>
+            </manifestEntries>
+        </archive>
+    </configuration>
+</plugin>
+Why it worked: This plugin specifies the Main-Class in the META-INF/MANIFEST.MF file. This entry tells the JVM which class to run when executing the JAR file with java -jar.
+Without specifying this, running java -jar would not know where to begin executing the program.
+6. Maven Clean Plugin
+xml
+Copy
+Edit
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-clean-plugin</artifactId>
+    <version>3.2.0</version>
+</plugin>
+Why it worked: The Maven Clean Plugin is responsible for cleaning up the target/ directory, which includes removing previously compiled files and JARs. This ensures that each build is fresh and doesn't carry over any leftover files from previous builds.
+It helps avoid issues where old files may conflict with the new build, ensuring you're always working with the latest compiled code.
+7. Building the Project with Maven
+Running mvn clean install:
+Why it worked: This command cleans up any existing build artifacts (like previous JARs), installs dependencies, and compiles the project. It also runs tests (if any) during this phase.
+Running mvn package:
+Why it worked: This command packages your project into a JAR file, according to the configuration specified in the pom.xml. The maven-shade-plugin ensures the dependencies are bundled into a single, executable JAR file.
+8. Running the JAR with java -jar
+Running java -jar target/GameStoreManagement-1.0-SNAPSHOT.jar:
+Why it worked: By specifying the Main-Class in the pom.xml, Maven created a JAR that knows where to start the application (via the com.gamestore.management.MainApplication class). When you run the JAR, the application is launched and it uses the MySQL connector to connect to the database.
+All the necessary libraries (like the MySQL connector) are included inside the JAR file, so you don’t need to worry about missing libraries when running the application.
+Summary of Why It Worked:
+Dependencies: Maven downloaded all the libraries you need (MySQL connector, JUnit, etc.).
+Java Version: The project was compiled using the correct Java version (20).
+Fat JAR: The Shade plugin bundled everything (code and dependencies) into a single JAR file.
+Main Class: The Main-Class entry in the manifest ensured that the correct entry point was used when running the JAR.
+Clean Build: The Clean plugin ensured the build was always fresh, avoiding old build artifacts from causing issues.
+By setting everything up in the pom.xml as described, Maven took care of compiling, packaging, and creating the executable JAR. Once you ran java -jar, everything worked because Maven correctly bundled your code with the dependencies, and the MySQL connector was included.
