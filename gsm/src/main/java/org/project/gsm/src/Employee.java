@@ -1,5 +1,7 @@
 package org.project.gsm.src;
 
+import java.sql.*;
+
 public class Employee extends Person {
 
 	public Employee(Credential inputCredentials) {
