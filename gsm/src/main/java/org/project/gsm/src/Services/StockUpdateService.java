@@ -80,33 +80,54 @@ public class StockUpdateService {
 	}
 
 	private int checkIfExistsInDB(Playware p) {
-		ResultSet resultSet = null; // TODO: Substitute for select statement
-		int inventoryID = 0;
-		try {
-			inventoryID = resultSet != null ? resultSet.getInt(1) : 0;
-
-		} catch (SQLException sqle) {
-			System.out.println(sqle);
-
+		try (Connection connection = DatabaseConnection.getConnection();
+		    PreparedStatement stmt = connection.prepareStatement(
+			    "SELECT inventory_id FROM inventory WHERE title = ?")) {
+			stmt.setString(1, p.getName());
+		ResultSet resultSet = stmt.executeQuery(); 
+		if (resultSet.next()) {
+				return resultSet.getInt("inventory_id");
+			}
+		} catch (SQLException e) {
+			System.err.println("Cannot find playware in DB: " + e.getMessage());
 		}
-		return inventoryID;
-
+		return 0;
 	}
 
 	private boolean insertIntoDB(Playware p, int qtyToAdd) {
-		boolean success = false;
+		String sql = "INSERT INTO inventory (title, price, discount, quantity_in_stock, description, warranty, type) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-		// TODO: Replace stub
+		try (Connection connection = DatabaseConnection.getConnection();
+		     PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-		return success;
+			stmt.setString(1, p.getName());
+			stmt.setDouble(2, p.getBasePrice());
+			stmt.setInt(3, 0); 
+			stmt.setInt(4, qtyToAdd);
+			stmt.setString(5, ""); 
+			stmt.setDate(6, null); 
+			stmt.setString(7, p instanceof Game ? "Game" : "Merch");
+			int rows = stmt.executeUpdate();
+			return rows > 0;
 
+		} catch (SQLException e) {
+			System.err.println("Error cannot insert playware: " + e.getMessage());
+			return false;
+		}
 	}
 
 	private boolean updateDBEntry(int inventoryID, int qtyToAdd) {
-		int rowCount = 0; // TODO: Replace stub with update statement
-
-		return rowCount != 0;
-
+		String sql = "UPDATE inventory SET quantity_in_stock = quantity_in_stock + ? WHERE inventory_id = ?";
+		try (Connection connection = DatabaseConnection.getConnection();
+		     PreparedStatement stmt = connection.prepareStatement(sql)) {
+			stmt.setInt(1, qtyToAdd);
+			stmt.setInt(2, inventoryID);
+			int rows = stmt.executeUpdate();
+			return rows > 0;
+		} catch (SQLException e) {
+			System.err.println("Cannot update inventory: " + e.getMessage());
+			return false;
+		}
 	}
 
 }
