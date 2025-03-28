@@ -63,12 +63,12 @@ public class GameController {
 
 	/* Utilities and Stubs */
 	private ArrayList<Game> getGamesFromDB() {
-		// TODO: Implement database fetch
+		// TODO: Replace with fetchAllGames() from GameDAO
 		return new ArrayList<>();
 	}
 
 	private Game findGameById(String id) {
-		// TODO: Implement database fetch
+		// TODO: Replace with searchForGameByID() from GameDAO
 		return null;
 	}
 
